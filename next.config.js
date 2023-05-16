@@ -2,13 +2,18 @@
 
 /**
  * @type {import('next').NextConfig}
- **/
+ * */
 const nextConfig = {
-  output: 'export',
-  basePath: '/front-bet-scrapper',
-  experimental: {
-    appDir: true,
+  reactStrictMode: true,
+  images: {
+    domains: ['images.unsplash.com'],
   },
+  webpack: (config, { isServer }) => {
+    if (!isServer) {
+      config.resolve.fallback.fs = false;
+    }
+    return config;
+  }
 }
 
 module.exports = nextConfig
